@@ -5,9 +5,6 @@ import time
 functions = {}
 root_dir = ""
 
-HOST_NAME = "localhost"
-HOST_PORT = 8000
-
 
 def readFile(path):
     f = open(path)
@@ -65,12 +62,14 @@ class ApyServer(BaseHTTPRequestHandler):
         self.wfile.write(bytes(data, "utf-8"))
 
 
-def run(path):
+def run(path, port):
     global root_dir
     root_dir = (path[:-1] if path[-1:] == "/" else path)
-    apyServer = HTTPServer((HOST_NAME, HOST_PORT), ApyServer)
+    hostname = "localhost"
 
-    print(time.asctime(), "Server Starts - %s:%s" % (HOST_NAME, HOST_PORT))
+    apyServer = HTTPServer((hostname, port), ApyServer)
+
+    print(time.asctime(), "Server Starts - %s:%s" % (hostname, port))
 
     try:
         apyServer.serve_forever()
@@ -78,4 +77,4 @@ def run(path):
         pass
 
     apyServer.server_close()
-    print(time.asctime(), "Server Stops - %s:%s" % (HOST_NAME, HOST_PORT))
+    print(time.asctime(), "Server Stops - %s:%s" % (hostname, port))
