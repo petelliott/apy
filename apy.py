@@ -16,7 +16,7 @@ def readFile(path):
 
 def doGETcalls(text):
     for key in functions:
-        if key+"()" in text 
+        if key+"()" in text:
             out = functions[key]()
             text = text.replace(key+"()", json.dumps(out))
     return text
